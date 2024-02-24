@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Image, Text, View, TouchableOpacity } from "react-native";
-
 import { styles } from "../constants/Styles";
 import { nameToPic } from "../constants/Constants";
 import { useEffect } from "react";
@@ -11,7 +10,7 @@ export default function GameScreen() {
   // TODO: Declare and initialize state variables here, using "useState".
 
   // State for the timer is handled for you.
-  const [timeLeft, setTimeLeft] = useState(5000);
+  const [timeRemaining, setTimeRemaining] = useState(5000);
   const [correctCount, setCorrectCount] = useState(0);
   const [total, setTotal] = useState(0);
   const [correctName, setCorrectName] = useState("");
@@ -20,11 +19,11 @@ export default function GameScreen() {
 
   // Called by the timer every 10 seconds
   const countDown = () => {
-    if (timeLeft > 0) {
+    if (timeRemaining > 0) {
       // Time still left, so decrement time state variable
-      setTimeLeft(timeLeft - 10);
+      setTimeRemaining(timeRemaining - 10);
     } else {
-      setTimeLeft(0);
+      setTimeRemaining(0);
       getNextRound();
       setTotal(total + 1);
       // Time has expired
@@ -56,7 +55,7 @@ export default function GameScreen() {
 
   // TODO: Update state here.
 
-    setTimeLeft(5000);
+    setTimeRemaining(5000);
   };
 
   // Called when user taps a name option.
@@ -65,7 +64,7 @@ export default function GameScreen() {
     if (nameOptions[index] === correctName) {
       setCorrectCount(correctCount + 1);
     }
-    setTotal(total + 1)
+    setTotal(total + 1);
   };
   
 
@@ -83,10 +82,9 @@ export default function GameScreen() {
     () => {
       getNextRound();
     },
-    [
-      /* TODO: Your State Variable Goes Here */
-    ]
     [total]
+      /* TODO: Your State Variable Goes Here */
+    
   );
 
   // Set up four name button components
@@ -107,7 +105,7 @@ export default function GameScreen() {
     );
   }
 
-  const timeRemainingStr = (timeLeft / 1000).toFixed(2);
+  const timeRemainingStr = (timeRemaining / 1000).toFixed(2);
 
   // Style & return the view.
   return (
